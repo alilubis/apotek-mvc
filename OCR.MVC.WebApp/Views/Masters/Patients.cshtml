@@ -1,0 +1,113 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+@* <div class="row">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+</div> *@
+@* <div class="container">
+    <div id="webcam">
+        
+    </div>
+    
+    <div id="capture" hidden>
+        <img id="imgCapture" />
+    </div>
+
+    <div class="pt-2">
+        <button class="btn btn-success" type="button" id="btnStart" hidden>Open Camera</button> 
+        <button class="btn btn-info" type="button" id="btnCapture">Capture</button> 
+        <button class="btn btn-primary" type="button" id="btnUpload" disabled="disabled">Extract Text</button>
+    </div>
+    
+    <fieldset>
+        <div class="form-group">
+            <label>Result :</label>
+            <textarea class="form-control" readonly rows="10" id="scan-result"></textarea>
+        </div>
+    </fieldset>
+</div>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="~/js/WebCam.js"></script> *@
+    <!-- <script type="text/javascript">
+        $(function () {
+            Webcam.set({
+                width: 320,
+                height: 240,
+                image_format: 'jpeg',
+                jpeg_quality: 90
+            });
+            Webcam.attach('#webcam');
+            $("#btnCapture").click(function () {
+                $("#webcam, #btnCapture").hide();
+                $("#capture, #btnStart").removeAttr("hidden");
+                $("#capture, #btnStart").show();
+                Webcam.snap(function (data_uri) {
+                    $("#imgCapture")[0].src = data_uri;
+                    $("#btnUpload").removeAttr("disabled");
+                });
+            });
+             $("#btnStart").click(function () {
+                $("#webcam, #btnCapture").show();
+                $("#capture, #btnStart").hide();
+                $("#btnUpload").prop("disabled", true);
+            });
+            $("#btnUpload").click(function () {
+                $("#btnUpload").html("Loading..");
+                $("#btnUpload").prop("disabled", true);
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/SaveCapture",
+                    data: {
+                        data: $("#imgCapture")[0].src
+                    },
+                    dataType: "json",
+                    success: function (r) {
+                        console.log(r);
+                        $("#scan-result").val(r.result);
+                        $("#btnUpload").prop("disabled", false);
+                        $("#btnUpload").html("Extract Text");
+
+                    }
+                });
+            });
+        });
+    </script> -->
