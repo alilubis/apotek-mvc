@@ -1,0 +1,291 @@
+﻿@{
+    ViewData["Title"] = "Data Suppliers";
+}
+<style>
+    .nav-container {
+        position: relative;
+    }
+
+    .add {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+</style>
+@*<partial name="Suppliers/AddSupplier.cshtml" />*@
+<div class="nav-container">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active text-right" aria-current="page">Masters / Data Suppliers </li>
+    </ol>
+    <button type="button" class="btn btn-sm btn-success add" data-toggle="modal" data-target=".box-modal">+ Tambah Data</button>
+</div>
+
+
+<!-- Modal Add -->
+<div class="modal fade bd-example-modal-lg box-modal" id="modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <input type="text" id="id" name="id" autocomplete="off" class="form-control" value="0" hidden>
+            <div class="modal-header bg-dark">
+                <h2 class="modal-title" id="ModalCenterTitle" style="color:#ffffff;font-weight:bold">Tambah Data</h2>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <label class="col-form-label">Kode:</label>
+                        <input id="kode" type="text" name="kode" autocomplete="off" class="form-control" placeholder="">
+                        <small class="error-kode text-danger mt-1"></small>
+                    </div>
+                    <div class="col-6">
+                        <label class="col-form-label">Nama:</label>
+                        <input id="nama" type="text" name="nama" autocomplete="off" class="form-control" placeholder="">
+                        <small class="error-name text-danger mt-1"></small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label class="col-form-label">NPWP:</label>
+                        <input id="npwp" type="text" name="npwp" autocomplete="off" class="form-control" placeholder="">
+                        <small class="error-npwp text-danger mt-1"></small>
+                    </div>
+                    <div class="col-6">
+                        <label class="col-form-label">Telp:</label>
+                        <input id="telp" type="text" name="telp" autocomplete="off" class="form-control" placeholder="">
+                        <small class="error-telp text-danger mt-1"></small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label class="col-form-label">PJ:</label>
+                        <input id="pj" type="text" name="pj" autocomplete="off" class="form-control" placeholder="">
+                        <small class="error-pj text-danger mt-1"></small>
+                    </div>
+                    <div class="col-6">
+                        
+                    </div>
+                </div>
+                <div>
+                    <label class="col-form-label">Alamat:</label>
+                    <Textarea id="alamat" type="alamat" name="code" autocomplete="off" class="form-control" rows="3"></Textarea>
+                    <small class="error-address text-danger mt-1"></small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-save" class="btn btn-primary" aria-label="Close">Save</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table id="table" class="table table-striped table-bordered" style="width:100%">
+    <thead class="bg-dark text-light">
+        <tr>
+            <th>No</th>
+            <th>Kode</th>
+            <th>Nama</th>
+            <th>NPWP</th>
+            <th>Telp.</th>
+            <th>Alamat</th>
+            <th>PJ</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+</table>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        
+
+        $('#btn-save').click(function (e) {
+            e.preventDefault();
+            var id = $("[name=id]").val();
+            var kode = $("[name=kode]").val();
+            var nama = $("[name=nama]").val();
+            var npwp = $("[name=npwp]").val();
+            var telp = $("[name=telp]").val();
+            var alamat = $("[name=alamat]").val();
+            var pj = $("[name=pj]").val();
+            var error = false;
+            if (name == '') {
+                error = true;
+                $(".error-name").html("Nama Harus Diisi");
+            }
+            var parameter = {
+                id: id,
+                code: kode,
+                name: nama,
+                npwp: npwp,
+                telp: telp,
+                address: alamat,
+                pj: pj,
+            }
+            if (!error) {
+                //$(".error-name").html('');
+                $("#btn-save").attr("disabled", true);
+                $("#btn-save").text("");
+                $("#btn-save").append('Loading..');
+                $.ajax({
+                    url: '/Supplier/addorupdate',
+                    type: 'POST',
+                    dataType: "JSON",
+                    data: parameter,
+                    success: function (response) {
+                        if (response.success) {
+                            toastr.options = {
+                                "positionClass": "toast-bottom-right"
+                            }
+                            toastr.success(response.message);
+                            //$('#departmentId').val('0');
+                            //$('#departmentName').val('');
+                            table.ajax.reload();
+
+                            $('#modal').modal('hide');
+                        } else {
+                            if (response.type == false) {
+                                //toastr.options = {
+                                //    "positionClass": "toast-bottom-right"
+                                //}
+                                //toastr.error(response.message);
+                            } else {
+                                //$(".error-name").html(response.message);
+                            }
+                        }
+                    }, error: function (err) {
+                        $("#btn-save").attr("disabled", false);
+                        toastr.options = {
+                            "positionClass": "toast-bottom-right"
+                        }
+                        toastr.error("Internal Server Error !")
+                    }
+                })
+                $("#btn-save").attr("disabled", false);
+                $("#btn-save").text("");
+                $("#btn-save").append('Save');
+            }
+        });
+
+
+        table = $("#table").DataTable({
+            //dom: 'Bfrtip',
+            //buttons: [
+            //    'csv', 'excel', 'print'
+            //],
+            scrollY: "420px",
+            scrollX: true,
+            scrollCollapse: true,
+            autoWidth: true,
+            pageLength: 5,
+            lengthMenu: [5, 10, 15, 20],
+            aoColumnDefs: [
+                { "bSortable": false, "aTargets": [0, 2] },
+                { "bSearchable": false, "aTargets": [0, 2] }
+            ],
+            stateSave: true,
+            autoWidth: true,
+            processing: true,
+            serverSide: true,
+            paging: true,
+            searching: { regex: true },
+            ajax: {
+                url: "/Supplier/LoadTable",
+                type: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                data: function (d) {
+                    console.log(d);
+                    return JSON.stringify(d);
+                }
+            },
+            columns: [
+                {
+                    data: "id", render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
+                { data: "code" },
+                { data: "name" },
+                { data: "npwp" },
+                { data: "telp" },
+                { data: "address" },
+                { data: "pj" },
+                {
+                    'data': function (data) {
+                        return `` +
+                            `<div class="text-center">
+                                <button
+                                    type="button"
+                                    data-toggle="modal"
+                                    data-target="#modal"
+                                    class="btn btn-warning btn-sm"
+                                    onclick=EditDepartement('/supplier/edit?id='+${data.id})>Edit</button>
+                                <button
+                                    type="button"
+                                    class="btn btn-danger btn-sm"
+                                    onclick=Delete('/supplier/delete?id='+${data.id})>Delete</button>
+                            </div>`
+                    }
+                }
+            ]
+        });
+        table.on('order.dt search.dt', function () {
+            table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        }).draw();
+    });
+
+    function Delete(url) {
+        Swal.fire({
+            title: "Data Akan Dihapus !",
+            text: "Data akan dihapus dan tidak bisa dikembalikan",
+            icon: "error",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirm',
+            buttons: true,
+            dangerMode: true,
+            //add textbox
+            input: 'text',
+            inputPlaceholder: 'Alasan',
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Alasan Harus Diisi'
+                }
+            }
+        }).then((result) => {
+            if (result.value) {
+                var reason = $(".swal2-input").val();
+                $.ajax({
+                    type: "POST",
+                    url: url + "&&reason=" + reason,
+                    success: function (response) {
+                        if (response.success) {
+                            toastr.options = {
+                                "positionClass": "toast-bottom-right"
+                            }
+                            toastr.success(response.message);
+                            table.ajax.reload();
+                            $('#Id').val('0');
+                            //$('#departmentName').val('');
+                        } else {
+                            toastr.options = {
+                                "positionClass": "toast-bottom-right"
+                            }
+                            toastr.error(response.message);
+                        }
+                    },
+                    error: function (err) {
+                        toastr.options = {
+                            "positionClass": "toast-bottom-right"
+                        }
+                        toastr.error("Internal Server Error !")
+                    }
+                })
+            }
+        })
+    }
+
+</script>

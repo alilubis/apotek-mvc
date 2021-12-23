@@ -16,5 +16,10 @@ namespace OCR.MVC.WebApp.Controllers
         {
             return View();
         }
+
+        public IActionResult Suppliers()
+        {
+            return View();
+        }
     }
 }

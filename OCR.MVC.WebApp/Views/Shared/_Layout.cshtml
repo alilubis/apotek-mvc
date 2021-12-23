@@ -12,6 +12,9 @@
 
     <link href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css" rel="stylesheet" />
     @*<link href="~/css/datatable/buttons.dataTables.min.css" rel="stylesheet" />*@
+
+    <link href="~/lib/toastr/toastr.min.css" rel="stylesheet" />
+    <link href="~/css/sweetalert/sweetalert2.min.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -37,8 +40,8 @@
                                 <a class="dropdown-item text-light" href="@Url.Action("Medicines","Masters")">Data Obat</a>
                                 <a class="dropdown-item text-light" href="@Url.Action("Patients","Masters")">Data Pasien</a>
                                 <a class="dropdown-item text-light" href="@Url.Action("Doctors","Masters")">Data Dokter</a>
-                                <a class="dropdown-item text-light" href="@Url.Action("Doctors","Masters")">Data Supplier</a>
-                                <a class="dropdown-item text-light" href="@Url.Action("Doctors","Masters")">Data Golongan Obat</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Suppliers","Masters")">Data Supplier</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Type","Masters")">Data Golongan Obat</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -50,7 +53,7 @@
                                 <a class="dropdown-item text-light" href="@Url.Action("Cashier","Transactions")">Mesin Kasir</a>
                                 <a class="dropdown-item text-light" href="@Url.Action("Order","Transactions")">Pembelian</a>
                                 <a class="dropdown-item text-light" href="@Url.Action("Selling","Transactions")">Penjualan</a>
-                                <a class="dropdown-item text-light" href="@Url.Action("Selling","Transactions")">Opname Stok</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Opname","Transactions")">Opname Stok</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -77,8 +80,8 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - OCR.MVC.WebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="container-fluid">
+            &copy; 2021 - Aplikasi Apotek @*- <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@
         </div>
     </footer>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -91,8 +94,10 @@
     <script src="~/lib/jquery/datatable/vfs_fonts.js"></script>
     <script src="~/lib/jquery/datatable/buttons.html5.min.js"></script>
     <script src="~/lib/jquery/datatable/buttons.print.min.js"></script>
-
-
+    <script src="~/lib/moment/moment.js"></script>
+    <script src="~/lib/toastr/toastr.min.js"></script>
+    <script src="~/lib/sweetalert/sweetalert.min.js"></script>
+    <script src="~/lib/sweetalert/sweetalert2@10.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
