@@ -1,11 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using OCR.MVC.WebApp.Extensions;
-using OCR.MVC.WebApp.Models;
-
 //===================================================​
 // Date :​ 23 DES 2021
 // Author :​ A.M.Lubis
@@ -15,6 +7,13 @@ using OCR.MVC.WebApp.Models;
 // Name	     |Date	     |Description               
 //           |           |
 //===================================================
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using OCR.MVC.WebApp.Extensions;
+using OCR.MVC.WebApp.Models;
 
 namespace OCR.MVC.WebApp.Controllers
 {
@@ -107,7 +106,7 @@ namespace OCR.MVC.WebApp.Controllers
                     return Json(new
                     {
                         success = true,
-                        message = "Data added successfully"
+                        message = "Data berhasil ditambahkan"
                     });
                 }
                 else
@@ -152,7 +151,7 @@ namespace OCR.MVC.WebApp.Controllers
                     return Json(new
                     {
                         success = true,
-                        message = "Data updated successfully"
+                        message = "Data berhasil diupdate"
                     });
                 }
             }
@@ -160,7 +159,7 @@ namespace OCR.MVC.WebApp.Controllers
             return Json(new
             {
                 success = false,
-                message = "Failed to added or updated data"
+                message = "Error saat update data"
             });
         }
 
@@ -175,7 +174,7 @@ namespace OCR.MVC.WebApp.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Data not found"
+                    message = "Data tidak ditemukan"
                 });
             }
             department.Add(departmentDelete);
@@ -226,7 +225,7 @@ namespace OCR.MVC.WebApp.Controllers
             return Json(new
             {
                 success = true,
-                message = "Data deleted successfully"
+                message = "Data berhasil dihapus"
             });
         }
     }
