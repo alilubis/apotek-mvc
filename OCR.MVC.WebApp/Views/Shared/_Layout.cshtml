@@ -16,16 +16,30 @@
     <link href="~/lib/toastr/toastr.min.css" rel="stylesheet" />
     <link href="~/css/sweetalert/sweetalert2.min.css" rel="stylesheet" />
 </head>
+<style>
+    .dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+    .dropdown-menu a:hover {
+        color: #00653b !important;
+    }
+    .bg-apotek {
+        background-color: #00653b;
+    }
+</style>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3 bg-dark">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3 bg-apotek">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Nia Farma</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/nia-logo.png" width="166" height="40" class="d-inline-block align-top" alt="">
+                </a>
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between pl-4">
                     <ul class="navbar-nav flex-grow-1">
 
                         <li class="nav-item">
@@ -36,12 +50,18 @@
                                aria-haspopup="true" aria-expanded="false">
                                 Masters
                             </a>
-                            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item text-light" href="@Url.Action("Medicines","Masters")">Data Obat</a>
-                                <a class="dropdown-item text-light" href="@Url.Action("Patients","Masters")">Data Pasien</a>
-                                <a class="dropdown-item text-light" href="@Url.Action("Doctors","Masters")">Data Dokter</a>
-                                <a class="dropdown-item text-light" href="@Url.Action("Suppliers","Masters")">Data Supplier</a>
-                                <a class="dropdown-item text-light" href="@Url.Action("Type","Masters")">Data Golongan Obat</a>
+                            <div class="dropdown-menu bg-apotek" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item text-light" href="@Url.Action("Medicines","Masters")">Obat</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Medicines","Masters")">Jasa</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Medicines","Masters")">Paket</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Type","Masters")">Golongan Produk</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Type","Masters")">Rak</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Patients","Masters")">Merk</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Suppliers","Masters")">Supplier</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Patients","Masters")">Pasien</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Banks","Masters")">Bank</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Type","Masters")">Jenis Racikan</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Doctors","Masters")">Dokter</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -49,11 +69,21 @@
                                aria-haspopup="true" aria-expanded="false">
                                 Transactions
                             </a>
-                            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-menu bg-apotek" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item text-light" href="@Url.Action("Cashier","Transactions")">Mesin Kasir</a>
-                                <a class="dropdown-item text-light" href="@Url.Action("Order","Transactions")">Pembelian</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Cashier","Transactions")">Reprint Nota Penjualan</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Cashier","Transactions")">Buka Cash Drawer</a>
                                 <a class="dropdown-item text-light" href="@Url.Action("Selling","Transactions")">Penjualan</a>
-                                <a class="dropdown-item text-light" href="@Url.Action("Opname","Transactions")">Opname Stok</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Selling","Transactions")">Retur Penjualan</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Selling","Transactions")">Order Penjualan</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Selling","Transactions")">Pelunasan Piutang</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Order","Transactions")">Pembelian</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Order","Transactions")">Retur Pembelian</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Order","Transactions")">Order Pembelian</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Order","Transactions")">Pelunasan Hutang</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Opname","Transactions")">Opname/Koreksi Stok</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Opname","Transactions")">Mutasi Stok</a>
+                                <a class="dropdown-item text-light" href="@Url.Action("Opname","Transactions")">Assembly Stok</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -61,7 +91,7 @@
                                aria-haspopup="true" aria-expanded="false">
                                 Reports
                             </a>
-                            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-menu bg-apotek" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item text-light" href="#">Report Obat</a>
                                 <a class="dropdown-item text-light" href="#">Report Pasien</a>
                                 <a class="dropdown-item text-light" href="#">Report Dokter</a>
@@ -69,6 +99,10 @@
                             </div>
                         </li>
                     </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+                    </form>
                 </div>
             </div>
         </nav>
@@ -81,7 +115,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container-fluid">
-            &copy; 2021 - Aplikasi Apotek @*- <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@
+            &copy; 2021
         </div>
     </footer>
     <script src="~/js/site.js" asp-append-version="true"></script>
