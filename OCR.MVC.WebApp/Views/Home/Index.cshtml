@@ -5,7 +5,7 @@
 <div class="alert alert-success" role="alert">
     Selamat Datang <b>Nia</b>, Semoga Selalu Diberikan Kesehatan .
 </div>
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="row">
     <div class="col-lg-3 col-md-6 col-sm-12">
         <div class="card border-success">
@@ -73,7 +73,7 @@
     <div class="col-12">
         <div class="accordion" id="accordion">
             <div class="card">
-                <h6 class="card-header alert-success collapsed mb-0" type="button" data-toggle="collapse" data-target="#sell-medicine" aria-expanded="false" aria-controls="sell-medicine">Penjualan Obat</h6>
+                <h6 class="card-header alert-success collapsed mb-0" type="button" data-toggle="collapse" data-target="#sell-medicine" aria-expanded="false" aria-controls="sell-medicine">Penjualan Obat<i class="fa fa-angle-right float-right"></i></h6>
                 <div class="card-body collapse" id="sell-medicine" aria-labelledby="sell-medicine" data-parent="#accordion">
                     <table class="table table-sm">
                         <thead class="table-success">
@@ -102,7 +102,7 @@
                 </div>
             </div>
             <div class="card">
-                <h6 class="card-header alert-success collapsed mb-0" type="button" data-toggle="collapse" data-target="#expired" aria-expanded="false" aria-controls="expired">Tanggal Expired Obat</h6>
+                <h6 class="card-header alert-success collapsed mb-0" type="button" data-toggle="collapse" data-target="#expired" aria-expanded="false" aria-controls="expired">Tanggal Expired Obat <i class="fa fa-angle-right float-right"></i></h6>
                 <div class="card-body collapse" id="expired" aria-labelledby="sell-medicine" data-parent="#accordion">
                     <table class="table table-sm">
                         <thead class="table-success">
@@ -133,4 +133,14 @@
         </div>
     </div>
 </div>
-
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function(){
+        // Toggle right and down arrow icon on show hide of collapse element
+        $(".collapse").on('show.bs.collapse', function(){
+        	$(this).prev(".card-header").find(".fa").removeClass("fa-angle-right").addClass("fa-angle-down");
+        }).on('hide.bs.collapse', function(){
+        	$(this).prev(".card-header").find(".fa").removeClass("fa-angle-down").addClass("fa-angle-right");
+        });
+    });
+</script>

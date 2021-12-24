@@ -19,7 +19,7 @@
     <ol class="breadcrumb bg-apotek-nav">
         <li class="breadcrumb-item active text-right" aria-current="page">Masters / Data Suppliers </li>
     </ol>
-    <button type="button" class="btn btn-sm btn-success add" data-toggle="modal" data-target=".box-modal">+ Tambah Data</button>
+    <button type="button" class="btn btn-sm btn-success add" data-toggle="modal" data-target=".box-modal" id="btn-add">+ Tambah Data</button>
 </div>
 
 
@@ -35,31 +35,31 @@
                 <div class="row">
                     <div class="col-6">
                         <label class="col-form-label">Kode:</label>
-                        <input id="kode" type="text" name="kode" autocomplete="off" class="form-control" placeholder="">
+                        <input id="kode" type="text" name="kode" autocomplete="off" class="form-control" placeholder="Kode" onclick="validate()" onkeyup="validate()">
                         <small class="error-kode text-danger mt-1"></small>
                     </div>
                     <div class="col-6">
                         <label class="col-form-label">Nama:</label>
-                        <input id="nama" type="text" name="nama" autocomplete="off" class="form-control" placeholder="">
+                        <input id="nama" type="text" name="nama" autocomplete="off" class="form-control" placeholder="Nama" onclick="validate()" onkeyup="validate()">
                         <small class="error-nama text-danger mt-1"></small>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6">
                         <label class="col-form-label">NPWP:</label>
-                        <input id="npwp" type="text" name="npwp" autocomplete="off" class="form-control" placeholder="">
+                        <input id="npwp" type="text" name="npwp" autocomplete="off" class="form-control" placeholder="NPWP" onclick="validate()" onkeyup="validate()">
                         <small class="error-npwp text-danger mt-1"></small>
                     </div>
                     <div class="col-6">
                         <label class="col-form-label">Telp:</label>
-                        <input id="telp" type="text" name="telp" autocomplete="off" class="form-control" placeholder="">
+                        <input id="telp" type="text" name="telp" autocomplete="off" class="form-control" placeholder="Telepon" onclick="validate()" onkeyup="validate()">
                         <small class="error-telp text-danger mt-1"></small>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6">
                         <label class="col-form-label">PJ:</label>
-                        <input id="pj" type="text" name="pj" autocomplete="off" class="form-control" placeholder="">
+                        <input id="pj" type="text" name="pj" autocomplete="off" class="form-control" placeholder="Penanggung Jawab" onclick="validate()" onkeyup="validate()">
                         <small class="error-pj text-danger mt-1"></small>
                     </div>
                     <div class="col-6">
@@ -68,8 +68,8 @@
                 </div>
                 <div>
                     <label class="col-form-label">Alamat:</label>
-                    <Textarea id="alamat" type="alamat" name="code" autocomplete="off" class="form-control" rows="3"></Textarea>
-                    <small class="error-address text-danger mt-1"></small>
+                    <Textarea id="alamat" type="alamat" name="alamat" autocomplete="off" class="form-control" rows="3" onclick="validate()" onkeyup="validate()"></Textarea>
+                    <small class="error-alamat text-danger mt-1"></small>
                 </div>
             </div>
             <div class="modal-footer">
@@ -96,47 +96,52 @@
 </table>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script>
+    function validate() {
+        let kode = $("[name=kode]").val();
+        let nama = $("[name=nama]").val();
+        let telp = $("[name=telp]").val();
+        let alamat = $("[name=alamat]").val();
+        let pj = $("[name=pj]").val();
+        kode == '' ? $(".error-kode").html("Kode Harus Diisi") : $(".error-kode").html('');
+        nama == '' ? $(".error-nama").html("Nama Harus Diisi") : $(".error-nama").html('');
+        telp == '' ? $(".error-telp").html("Nomor Telepon Harus Diisi") : $(".error-telp").html('');
+        alamat == '' ? $(".error-alamat").html("Alamat Harus Diisi") : $(".error-alamat").html('');
+        pj == '' ? $(".error-pj").html("Penanggung Jawab Harus Diisi") : $(".error-pj").html('');
+        if (kode == '' || nama == '' || telp == '' || alamat == '' || pj == '') {
+            $("#btn-save").attr("disabled", true);
+        } else {
+            $("#btn-save").attr("disabled", false);
+        }
+    }
+
     $(document).ready(function () {
+        $('#btn-add').click(function (e) {
+            validate();
+            $("[name=id]").val(0);
+            $("[name=kode]").val('');
+            $("[name=nama]").val('');
+            $("[name=npwp]").val('');
+            $("[name=telp]").val('');
+            $("[name=alamat]").val('');
+            $("[name=pj]").val('');
+        });
+
         $('#btn-save').click(function (e) {
             e.preventDefault();
-            let id = $("[name=id]").val();
-            let kode = $("[name=kode]").val();
-            let nama = $("[name=nama]").val();
-            let npwp = $("[name=npwp]").val();
-            let telp = $("[name=telp]").val();
-            let alamat = $("[name=alamat]").val();
-            let pj = $("[name=pj]").val();
             let error = false;
 
-            if (kode == '') {
-                error = true;
-                $(".error-kode").html("Kode Harus Diisi");
-            }
-
-            if (nama == '') {
-                error = true;
-                $(".error-nama").html("Nama Harus Diisi");
-            }
-
-            if (telp == '') {
-                error = true;
-                $(".error-telp").html("Nomor Telepon Harus Diisi");
-            }
-
             let parameter = {
-                id: id,
-                code: kode,
-                name: nama,
-                npwp: npwp,
-                telp: telp,
-                address: alamat,
-                pj: pj,
+                id: $("[name=id]").val(),
+                code: $("[name=kode]").val(),
+                name: $("[name=nama]").val(),
+                npwp: $("[name=npwp]").val(),
+                telp: $("[name=telp]").val(),
+                address: $("[name=alamat]").val(),
+                pj: $("[name=pj]").val(),
             }
             if (!error) {
-                //$(".error-name").html('');
                 $("#btn-save").attr("disabled", true);
-                $("#btn-save").text("");
-                $("#btn-save").append('Loading..');
+                $("#btn-save").text("Loading..");
                 $.ajax({
                     url: '/Supplier/addorupdate',
                     type: 'POST',
@@ -145,29 +150,17 @@
                     success: function (response) {
                         if (response.success) {
                             success(response.message);
-                            //$('#departmentId').val('0');
-                            //$('#departmentName').val('');
                             table.ajax.reload();
-
                             $('#modal').modal('hide');
                         } else {
-                            if (response.type == false) {
-                                error(response.message);
-                            } else {
-                                //$(".error-name").html(response.message);
-                            }
+                            error(response.message);
                         }
                     }, error: function (err) {
-                        $("#btn-save").attr("disabled", false);
-                        toastr.options = {
-                            "positionClass": "toast-bottom-right"
-                        }
-                        toastr.error("Internal Server Error !")
+                        error("Internal Server Error !")
                     }
                 })
                 $("#btn-save").attr("disabled", false);
-                $("#btn-save").text("");
-                $("#btn-save").append('Save');
+                $("#btn-save").text("Save");
             }
         });
 
@@ -223,7 +216,7 @@
                                     data-toggle="modal"
                                     data-target="#modal"
                                     class="btn btn-warning btn-sm"
-                                    onclick=EditDepartement('/supplier/edit?id='+${data.id})>Edit</button>
+                                    onclick=Edit('/supplier/edit?id='+${data.id})>Edit</button>
                                 <button
                                     type="button"
                                     class="btn btn-danger btn-sm"
@@ -249,19 +242,42 @@
                 if (response.success) {
                     success(response.message);
                     table.ajax.reload();
-                    $('#Id').val('0');
-                    //$('#name').val('');
                 } else {
                     error(response.message);
                 }
             },
             error: function (err) {
-                toastr.options = {
-                    "positionClass": "toast-bottom-right"
-                }
-                toastr.error("Internal Server Error !")
+                error("Internal Server Error !")
             }
         })
+    }
+
+    function Edit(url) {
+        validate();
+        if (url) {
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function (response) {
+                    if (response.success) {
+                        $("[name=kode]").focus();
+
+                        $("[name=id]").val(response.data.id);
+                        $("[name=kode]").val(response.data.code);
+                        $("[name=nama]").val(response.data.name);
+                        $("[name=npwp]").val(response.data.npwp);
+                        $("[name=telp]").val(response.data.telp);
+                        $("[name=alamat]").val(response.data.address);
+                        $("[name=pj]").val(response.data.pj);
+                    } else {
+                        error("Data not found");
+                    }
+                },
+                error: function (err) {
+                    error("Internal Server Error !")
+                }
+            })
+        }
     }
 
 </script>

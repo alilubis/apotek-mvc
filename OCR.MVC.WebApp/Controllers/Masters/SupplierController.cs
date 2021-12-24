@@ -66,11 +66,11 @@ namespace OCR.MVC.WebApp.Controllers
 
         public JsonResult Edit(int id)
         {
-            var dataJobTitleById = _db.Suppliers.First(u => u.Id == id);
+            var dataById = _db.Suppliers.First(u => u.Id == id);
             return Json(new
             {
                 success = true,
-                data = dataJobTitleById
+                data = dataById
             });
         }
 
@@ -87,10 +87,10 @@ namespace OCR.MVC.WebApp.Controllers
                         return Json(new
                         {
                             success = false,
-                            type = true,
                             message = "Supplier name already exist"
                         });
                     };
+
                     var add = new Supplier()
                     {
                         Code = model.Code,
@@ -111,43 +111,14 @@ namespace OCR.MVC.WebApp.Controllers
                 }
                 else
                 {
-                    var departmentUpdate = _db.Suppliers.First(u => u.Id == model.Id);
-                    var departmentNameBefore = departmentUpdate.Name;
-                    departmentUpdate.Name = model.Name;
+                    var data = _db.Suppliers.First(u => u.Id == model.Id);
+                    data.Code = model.Code;
+                    data.Name = model.Name;
+                    data.NPWP = model.NPWP;
+                    data.Telp = model.Telp;
+                    data.Address = model.Address;
+                    data.PJ = model.PJ;
                     _db.SaveChanges();
-                    //if(departmentNameBefore != name) 
-                    //{ 
-                    //    // audit log
-                    //    var auditLog = new AuditLog()
-                    //    {
-                    //        AuditLogDateTime = DateTime.Now,
-                    //        AuditLogTableName = "Department",
-                    //        AuditLogModuleName = "/Department/Index",
-                    //        AuditLogAction = "UPDATE",
-                    //        AuditLogReason = reason,
-                    //        AuditLogRowID = id,
-                    //        AuditLogRowName = "",
-                    //        AuditLogRowVersion = "",
-                    //        AuditLogUserID = HttpContext.Session.GetInt32("userId").Value,
-                    //        AuditLogUserName = HttpContext.Session.GetString("username"),
-                    //        AuditLogComputerID = 0,
-                    //        AuditLogComputerName = Dns.GetHostName(),
-                    //    };
-                    //    _db.Add(auditLog);
-                    //    _db.SaveChanges();
-
-                    //    // audit log detail
-                    //    var auditLogField = new AuditLogField()
-                    //    {
-                    //        AuditLogID = auditLog.AuditLogID,
-                    //        AuditLogFieldName = "Name",
-                    //        AuditLogFieldBefore = departmentNameBefore,
-                    //        AuditLogFieldAfter = name
-                    //    };
-                    //    _db.Add(auditLogField);
-                    //    _db.SaveChanges();
-                    //}
-
                     return Json(new
                     {
                         success = true,
@@ -166,10 +137,10 @@ namespace OCR.MVC.WebApp.Controllers
         [HttpPost]
         public JsonResult Delete(int id, string reason)
         {
-            List<Supplier> department = new List<Supplier>();
+            List<Supplier> data = new List<Supplier>();
             List<string> listString = new List<string>();
-            var departmentDelete = _db.Suppliers.First(u => u.Id == id);
-            if (departmentDelete == null)
+            var delete = _db.Suppliers.First(u => u.Id == id);
+            if (delete == null)
             {
                 return Json(new
                 {
@@ -177,7 +148,7 @@ namespace OCR.MVC.WebApp.Controllers
                     message = "Data tidak ditemukan"
                 });
             }
-            department.Add(departmentDelete);
+            data.Add(delete);
 
             var columnNames = (from t in typeof(Supplier).GetProperties()
                                select t.Name).ToList();
@@ -219,7 +190,7 @@ namespace OCR.MVC.WebApp.Controllers
             //    _db.SaveChanges();
             //}   
             // delete data
-            _db.Remove(departmentDelete);
+            _db.Remove(delete);
             _db.SaveChanges();
 
             return Json(new
