@@ -2,23 +2,135 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="row">
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-success">Go somewhere</a>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-success">Go somewhere</a>
-      </div>
-    </div>
-  </div>
+<div class="alert alert-success" role="alert">
+    Selamat Datang <b>Nia</b>, Semoga Selalu Diberikan Kesehatan .
 </div>
+
+<div class="row">
+    <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="card border-success">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-8">
+                        <h4><span class="badge badge-pill badge-success">Rp.13.336k</span></h4>
+                        <div> Penjualan </div>
+                    </div>
+                    <div class="col-4 d-flex align-items-center">
+                        <a href="#" class="btn btn-success"> Details <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="card border-success">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-8">
+                        <h4><span class="badge badge-pill badge-primary">Rp.13.436k</span></h4>
+                        <div> Pembelian </div>
+                    </div>
+                    <div class="col-4 d-flex align-items-center">
+                        <a href="#" class="btn btn-success"> Details <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="card border-success">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-8">
+                        <h4><span class="badge badge-pill badge-warning">13 produk</span></h4>
+                        <div> Expired (6 Bulan) </div>
+                    </div>
+                    <div class="col-4 d-flex align-items-center">
+                        <a href="#" class="btn btn-success"> Details <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="card border-success">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-8">
+                        <h4><span class="badge badge-pill badge-danger">2 produk</span></h4>
+                        <div> Expired (3 Bulan) </div>
+                    </div>
+                    <div class="col-4 d-flex align-items-center">
+                        <a href="#" class="btn btn-success"> Details <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row pt-3">
+    <div class="col-12">
+        <div class="accordion" id="accordion">
+            <div class="card">
+                <h6 class="card-header alert-success collapsed mb-0" type="button" data-toggle="collapse" data-target="#sell-medicine" aria-expanded="false" aria-controls="sell-medicine">Penjualan Obat</h6>
+                <div class="card-body collapse" id="sell-medicine" aria-labelledby="sell-medicine" data-parent="#accordion">
+                    <table class="table table-sm">
+                        <thead class="table-success">
+                            <tr>
+                                <th scope="col">PLU</th>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Harga Satuan</th>
+                                <th scope="col">User</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>IDE123</td>
+                                <td>Paramex</td>
+                                <td>5.000</td>
+                                <td>Yola</td>
+                            </tr>
+                            <tr>
+                                <td>IDE124</td>
+                                <td>Kaflam</td>
+                                <td>12.000</td>
+                                <td>Nia</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card">
+                <h6 class="card-header alert-success collapsed mb-0" type="button" data-toggle="collapse" data-target="#expired" aria-expanded="false" aria-controls="expired">Tanggal Expired Obat</h6>
+                <div class="card-body collapse" id="expired" aria-labelledby="sell-medicine" data-parent="#accordion">
+                    <table class="table table-sm">
+                        <thead class="table-success">
+                            <tr>
+                                <th scope="col">PLU</th>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Expired</th>
+                                <th scope="col">Creator</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>IDE123</td>
+                                <td>Klorofil</td>
+                                <td>5-Jan-2021</td>
+                                <td>Yola</td>
+                            </tr>
+                            <tr>
+                                <td>IDE124</td>
+                                <td>Renax</td>
+                                <td>23-Jan-2021</td>
+                                <td>Nia</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
