@@ -35,31 +35,31 @@
                 <div class="row">
                     <div class="col-6">
                         <label class="col-form-label">Kode:</label>
-                        <input id="kode" type="text" name="kode" autocomplete="off" class="form-control" placeholder="Kode" onclick="validate()" onkeyup="validate()">
+                        <input id="kode" type="text" name="kode" autocomplete="off" class="form-control" placeholder="Kode" onfocus="validate()" onkeyup="validate()">
                         <small class="error-kode text-danger mt-1"></small>
                     </div>
                     <div class="col-6">
                         <label class="col-form-label">Nama:</label>
-                        <input id="nama" type="text" name="nama" autocomplete="off" class="form-control" placeholder="Nama" onclick="validate()" onkeyup="validate()">
+                        <input id="nama" type="text" name="nama" autocomplete="off" class="form-control" placeholder="Nama" onkeyup="validate()">
                         <small class="error-nama text-danger mt-1"></small>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6">
                         <label class="col-form-label">NPWP:</label>
-                        <input id="npwp" type="text" name="npwp" autocomplete="off" class="form-control" placeholder="NPWP" onclick="validate()" onkeyup="validate()">
+                        <input id="npwp" type="text" name="npwp" autocomplete="off" class="form-control" placeholder="NPWP" onkeyup="validate()">
                         <small class="error-npwp text-danger mt-1"></small>
                     </div>
                     <div class="col-6">
                         <label class="col-form-label">Telp:</label>
-                        <input id="telp" type="text" name="telp" autocomplete="off" class="form-control" placeholder="Telepon" onclick="validate()" onkeyup="validate()">
+                        <input id="telp" type="text" name="telp" autocomplete="off" class="form-control" placeholder="Telepon" onkeyup="validate()">
                         <small class="error-telp text-danger mt-1"></small>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6">
                         <label class="col-form-label">PJ:</label>
-                        <input id="pj" type="text" name="pj" autocomplete="off" class="form-control" placeholder="Penanggung Jawab" onclick="validate()" onkeyup="validate()">
+                        <input id="pj" type="text" name="pj" autocomplete="off" class="form-control" placeholder="Penanggung Jawab" onkeyup="validate()">
                         <small class="error-pj text-danger mt-1"></small>
                     </div>
                     <div class="col-6">
@@ -68,7 +68,7 @@
                 </div>
                 <div>
                     <label class="col-form-label">Alamat:</label>
-                    <Textarea id="alamat" type="alamat" name="alamat" autocomplete="off" class="form-control" rows="3" onclick="validate()" onkeyup="validate()"></Textarea>
+                    <Textarea id="alamat" type="alamat" name="alamat" autocomplete="off" class="form-control" rows="3" onkeyup="validate()"></Textarea>
                     <small class="error-alamat text-danger mt-1"></small>
                 </div>
             </div>
@@ -81,7 +81,7 @@
 </div>
 
 <table id="table" class="table table-bordered" style="width:100%">
-    <thead class="text-dark">
+    <thead>
         <tr>
             <th>No</th>
             <th>Kode</th>
@@ -115,8 +115,13 @@
     }
 
     $(document).ready(function () {
+        $('#modal').on('shown.bs.modal', function () {
+            $("[name=kode]").focus();
+        })  
+
         $('#btn-add').click(function (e) {
             validate();
+            $("#ModalCenterTitle").text("Tambah Data");
             $("[name=id]").val(0);
             $("[name=kode]").val('');
             $("[name=nama]").val('');
@@ -166,10 +171,10 @@
 
 
         table = $("#table").DataTable({
-            //dom: 'Bfrtip',
-            //buttons: [
-            //    'csv', 'excel', 'print'
-            //],
+            dom: 'Bfrtip',
+            buttons: [
+                'csv', 'excel', 'print'
+            ],
             scrollY: "420px",
             scrollX: true,
             scrollCollapse: true,
@@ -219,7 +224,7 @@
                                     onclick=Edit('/supplier/edit?id='+${data.id})>Edit</button>
                                 <button
                                     type="button"
-                                    class="btn btn-danger btn-sm"
+                                    class="btn btn-danger btn-sm" 
                                     onclick=Delete('/supplier/delete?id='+${data.id})>Delete</button>
                             </div>`
                     }
@@ -253,7 +258,7 @@
     }
 
     function Edit(url) {
-        validate();
+        $("#ModalCenterTitle").text("Edit Data");
         if (url) {
             $.ajax({
                 type: "GET",
