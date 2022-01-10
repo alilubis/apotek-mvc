@@ -1,0 +1,284 @@
+﻿<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Transaksi Pembelian</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="row">
+                                <div class="col-4 col-form-label text-right">Nomor Ref :</div>
+                                <div class="col-8"><input type="text" class="form-control" id="no-ref" value="RJB-XXX"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="row">
+                                <div class="col-4 col-form-label text-right">Cabang :</div>
+                                <div class="col-8"><input type="text" class="form-control" id="cabang" value="Pusat"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="row">
+                                <div class="col-4 col-form-label text-right">Tanggal :</div>
+                                <div class="col-8"><input type="text" class="form-control" id="tanggal" value="12/22/2021"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="row">
+                                <div class="col-4 col-form-label text-right">Lokasi :</div>
+                                <div class="col-8"><input type="text" class="form-control" id="lokasi" value="Opname"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="row">
+                                <div class="col-4 col-form-label text-right">No faktur :</div>
+                                <div class="col-8"><input type="text" class="form-control" id="no-faktur" value="12/22/2021"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="row">
+                                <div class="col-4 col-form-label text-right">Supplier :</div>
+                                <div class="col-8"><input type="text" class="form-control" id="supplier" value=""></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="row">
+                                <div class="col-4 col-form-label text-right">Nomor PO :</div>
+                                <div class="col-8"><input type="text" class="form-control" id="nomor-po" value=""></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="row">
+                                <div class="col-4 col-form-label text-right">Tanggal PO :</div>
+                                <div class="col-8"><input type="text" class="form-control" id="tanggal-po" value="12/22/2021"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pt-3">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="row">
+                                <div class="col-lg-4 col-sm-12 col-form-label text-right">
+                                    <div class="form-group form-check">
+                                        <input type="checkbox" class="form-check-input" id="ck-kredit">
+                                        <label class="form-check-label" for="ck-kredit">Kredit</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-sm-12">
+                                    <div class="row" id="dv-tanggal-tempo" hidden>
+                                        <div class="col-4 col-form-label text-right">
+                                           Tgl Tempo :
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" class="form-control" id="tanggal-tempo" value="12/22/2021">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="py-3 py-lg-3">
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-pembelian-tab" data-toggle="tab" href="#nav-pembelian" role="tab" aria-controls="nav-pembelian" aria-selected="true">Item Pembelian</a>
+                                <a class="nav-item nav-link" id="nav-pengiriman-tab" data-toggle="tab" href="#nav-pengiriman" role="tab" aria-controls="nav-pengiriman" aria-selected="false">Pengiriman</a>
+                            </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-pembelian" role="tabpanel" aria-labelledby="nav-pembelian-tab">
+                                <div class="pt-2 pt-lg-2 table-responsive">
+                                    <table class="table table-bordered text-nowrap">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">PLU</th>
+                                                <th scope="col">Nama Produk</th>
+                                                <th scope="col">Sat Beli</th>
+                                                <th scope="col">Nomor Batch</th>
+                                                <th scope="col">Kadaluwarsa</th>
+                                                <th scope="col">Qty</th>
+                                                <th scope="col">Isi</th>
+                                                <th scope="col">Sat Jual</th>
+                                                <th scope="col">Harga Beli</th>
+                                                <th scope="col">Harga Total</th>
+                                                <th scope="col">Disc 10%</th>
+                                                <th scope="col">Discount</th>
+                                                <th scope="col">Net Total</th>
+                                                <th scope="col">Pajak</th>
+                                                <th scope="col">Update Harga</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="border-bottom"></div>
+                                <div class="row pt-4">
+                                    <div class="col-4">
+                                        <div class="row">
+                                            <div class="col-4 col-form-label">
+                                                <b>Sub Total :</b>
+                                            </div>
+                                            <div class="col-8">
+                                                <input type="text" class="form-control" id="sub-total" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="row">
+                                            <div class="col-5 col-form-label">
+                                                <b>Total Tagihan :</b>
+                                            </div>
+                                            <div class="col-7">
+                                                <input type="text" class="form-control" id="sub-total" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4"></div>
+                                </div>
+                                <div class="row py-1">
+                                    <div class="col-4">
+                                        <div class="row">
+                                            <div class="col-4 col-form-label">
+                                                Diskon :
+                                            </div>
+                                            <div class="col-8 d-flex">
+                                                <input type="text" class="form-control" style="width:60px" id="diskon-persen" value="">
+                                                <label class="col-form-label px-2">%</label>
+                                                <input type="text" class="form-control" style="width:134px" id="diskon-rupiah" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="row">
+                                            <div class="col-5 col-form-label">
+                                                Cara Bayar :
+                                            </div>
+                                            <div class="col-7">
+                                                <input type="text" class="form-control" id="sub-total" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="row">
+                                            <div class="col-4 col-form-label">
+                                                DPP :
+                                            </div>
+                                            <div class="col-8">
+                                                <input type="text" class="form-control" id="dpp" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4"></div>
+                                    <div class="col-4"></div>
+                                </div>
+                                <div class="row py-1">
+                                    <div class="col-4">
+                                        <div class="row">
+                                            <div class="col-4 col-form-label">
+                                                Pajak :
+                                            </div>
+                                            <div class="col-8">
+                                                <input type="text" class="form-control" id="pajak" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4"></div>
+                                    <div class="col-4"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="row">
+                                            <div class="col-4 col-form-label">
+                                                Total :
+                                            </div>
+                                            <div class="col-8">
+                                                <input type="text" class="form-control" id="total" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="row">
+                                            <div class="col-5 col-form-label">
+                                                Jumlah Bayar :
+                                            </div>
+                                            <div class="col-7">
+                                                <input type="text" class="form-control" id="sub-total" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="row">
+                                            <div class="col-4 col-form-label">
+                                                Total+Ongkir:
+                                            </div>
+                                            <div class="col-8">
+                                                <input type="text" class="form-control" id="total-ongkir" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="row">
+                                            <div class="col-5 col-form-label">
+                                                Total Kredit :
+                                            </div>
+                                            <div class="col-7">
+                                                <input type="text" class="form-control" id="sub-total" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4"></div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="nav-pengiriman" role="tabpanel" aria-labelledby="nav-pengiriman-tab">
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-success">Import</button>*@
+                <button type="button" class="btn btn-primary">Simpan</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+            </div>
+        </div>
+    </div>
+</div>

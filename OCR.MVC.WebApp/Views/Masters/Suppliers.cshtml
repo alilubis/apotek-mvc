@@ -1,0 +1,288 @@
+﻿@{
+    ViewData["Title"] = "Data Suppliers";
+}
+<style>
+    .nav-container {
+        position: relative;
+    }
+
+    .add {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+</style>
+
+@*<partial name="Suppliers/AddSupplier.cshtml" />*@
+<div class="nav-container">
+    <ol class="breadcrumb bg-apotek-nav">
+        <li class="breadcrumb-item active text-right" aria-current="page">Masters / Data Suppliers </li>
+    </ol>
+    <button type="button" class="btn btn-sm btn-success add" data-toggle="modal" data-target=".box-modal" id="btn-add">+ Tambah Data</button>
+</div>
+
+
+<!-- Modal Add -->
+<div class="modal fade bd-example-modal-lg box-modal" id="modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <input type="text" id="id" name="id" autocomplete="off" class="form-control" value="0" hidden>
+            <div class="modal-header bg-apotek">
+                <h2 class="modal-title" id="ModalCenterTitle" style="color:#ffffff;font-weight:bold">Tambah Data</h2>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <label class="col-form-label">Kode:</label>
+                        <input id="kode" type="text" name="kode" autocomplete="off" class="form-control" placeholder="Kode" onfocus="validate()" onkeyup="validate()">
+                        <small class="error-kode text-danger mt-1"></small>
+                    </div>
+                    <div class="col-6">
+                        <label class="col-form-label">Nama:</label>
+                        <input id="nama" type="text" name="nama" autocomplete="off" class="form-control" placeholder="Nama" onkeyup="validate()">
+                        <small class="error-nama text-danger mt-1"></small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label class="col-form-label">NPWP:</label>
+                        <input id="npwp" type="text" name="npwp" autocomplete="off" class="form-control" placeholder="NPWP" onkeyup="validate()">
+                        <small class="error-npwp text-danger mt-1"></small>
+                    </div>
+                    <div class="col-6">
+                        <label class="col-form-label">Telp:</label>
+                        <input id="telp" type="text" name="telp" autocomplete="off" class="form-control" placeholder="Telepon" onkeyup="validate()">
+                        <small class="error-telp text-danger mt-1"></small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label class="col-form-label">PJ:</label>
+                        <input id="pj" type="text" name="pj" autocomplete="off" class="form-control" placeholder="Penanggung Jawab" onkeyup="validate()">
+                        <small class="error-pj text-danger mt-1"></small>
+                    </div>
+                    <div class="col-6">
+
+                    </div>
+                </div>
+                <div>
+                    <label class="col-form-label">Alamat:</label>
+                    <Textarea id="alamat" type="alamat" name="alamat" autocomplete="off" class="form-control" rows="3" onkeyup="validate()"></Textarea>
+                    <small class="error-alamat text-danger mt-1"></small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-save" class="btn btn-success bg-apotek" aria-label="Close">Save</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table id="table" class="table table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Kode</th>
+            <th>Nama</th>
+            <th>NPWP</th>
+            <th>Telp.</th>
+            <th>Alamat</th>
+            <th>PJ</th>
+            <th class="text-center">Actions</th>
+        </tr>
+    </thead>
+</table>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    function validate() {
+        let kode = $("[name=kode]").val();
+        let nama = $("[name=nama]").val();
+        let telp = $("[name=telp]").val();
+        let alamat = $("[name=alamat]").val();
+        let pj = $("[name=pj]").val();
+        kode == '' ? $(".error-kode").html("Kode Harus Diisi") : $(".error-kode").html('');
+        nama == '' ? $(".error-nama").html("Nama Harus Diisi") : $(".error-nama").html('');
+        telp == '' ? $(".error-telp").html("Nomor Telepon Harus Diisi") : $(".error-telp").html('');
+        alamat == '' ? $(".error-alamat").html("Alamat Harus Diisi") : $(".error-alamat").html('');
+        pj == '' ? $(".error-pj").html("Penanggung Jawab Harus Diisi") : $(".error-pj").html('');
+        if (kode == '' || nama == '' || telp == '' || alamat == '' || pj == '') {
+            $("#btn-save").attr("disabled", true);
+        } else {
+            $("#btn-save").attr("disabled", false);
+        }
+    }
+
+    $(document).ready(function () {
+        $('#modal').on('shown.bs.modal', function () {
+            $("[name=kode]").focus();
+        })  
+
+        $('#btn-add').click(function (e) {
+            validate();
+            $("#ModalCenterTitle").text("Tambah Data");
+            $("[name=id]").val(0);
+            $("[name=kode]").val('');
+            $("[name=nama]").val('');
+            $("[name=npwp]").val('');
+            $("[name=telp]").val('');
+            $("[name=alamat]").val('');
+            $("[name=pj]").val('');
+        });
+
+        $('#btn-save').click(function (e) {
+            e.preventDefault();
+            let error = false;
+
+            let parameter = {
+                id: $("[name=id]").val(),
+                code: $("[name=kode]").val(),
+                name: $("[name=nama]").val(),
+                npwp: $("[name=npwp]").val(),
+                telp: $("[name=telp]").val(),
+                address: $("[name=alamat]").val(),
+                pj: $("[name=pj]").val(),
+            }
+            if (!error) {
+                $("#btn-save").attr("disabled", true);
+                $("#btn-save").text("Loading..");
+                $.ajax({
+                    url: '/Supplier/addorupdate',
+                    type: 'POST',
+                    dataType: "JSON",
+                    data: parameter,
+                    success: function (response) {
+                        if (response.success) {
+                            success(response.message);
+                            table.ajax.reload();
+                            $('#modal').modal('hide');
+                        } else {
+                            error(response.message);
+                        }
+                    }, error: function (err) {
+                        error("Internal Server Error !")
+                    }
+                })
+                $("#btn-save").attr("disabled", false);
+                $("#btn-save").text("Save");
+            }
+        });
+
+
+        table = $("#table").DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'csv', 'excel', 'print'
+            ],
+            scrollY: "420px",
+            scrollX: true,
+            scrollCollapse: true,
+            autoWidth: true,
+            pageLength: 5,
+            lengthMenu: [5, 10, 15, 20],
+            aoColumnDefs: [
+                { "bSortable": false, "aTargets": [0, 7] },
+                { "bSearchable": false, "aTargets": [0, 7] }
+            ],
+            stateSave: true,
+            autoWidth: true,
+            processing: true,
+            serverSide: true,
+            paging: true,
+            searching: { regex: true },
+            ajax: {
+                url: "/Supplier/LoadTable",
+                type: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                data: function (d) {
+                    return JSON.stringify(d);
+                }
+            },
+            columns: [
+                {
+                    data: "id", render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
+                { data: "code" },
+                { data: "name" },
+                { data: "npwp" },
+                { data: "telp" },
+                { data: "address" },
+                { data: "pj" },
+                {
+                    'data': function (data) {
+                        return `` +
+                            `<div class="text-center">
+                                <button
+                                    type="button"
+                                    data-toggle="modal"
+                                    data-target="#modal"
+                                    class="btn btn-warning btn-sm"
+                                    onclick=Edit('/supplier/edit?id='+${data.id})>Edit</button>
+                                <button
+                                    type="button"
+                                    class="btn btn-danger btn-sm" 
+                                    onclick=Delete('/supplier/delete?id='+${data.id})>Delete</button>
+                            </div>`
+                    }
+                }
+            ]
+        });
+        table.on('order.dt search.dt', function () {
+            table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        }).draw();
+    });
+
+    function DeleteData(url) {
+        let reason = $(".swal2-input").val();
+        $.ajax({
+            type: "POST",
+            url: url + "&&reason=" + reason,
+            success: function (response) {
+                if (response.success) {
+                    success(response.message);
+                    table.ajax.reload();
+                } else {
+                    error(response.message);
+                }
+            },
+            error: function (err) {
+                error("Internal Server Error !")
+            }
+        })
+    }
+
+    function Edit(url) {
+        $("#ModalCenterTitle").text("Edit Data");
+        if (url) {
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function (response) {
+                    if (response.success) {
+                        $("[name=kode]").focus();
+
+                        $("[name=id]").val(response.data.id);
+                        $("[name=kode]").val(response.data.code);
+                        $("[name=nama]").val(response.data.name);
+                        $("[name=npwp]").val(response.data.npwp);
+                        $("[name=telp]").val(response.data.telp);
+                        $("[name=alamat]").val(response.data.address);
+                        $("[name=pj]").val(response.data.pj);
+                    } else {
+                        error("Data not found");
+                    }
+                },
+                error: function (err) {
+                    error("Internal Server Error !")
+                }
+            })
+        }
+    }
+
+</script>

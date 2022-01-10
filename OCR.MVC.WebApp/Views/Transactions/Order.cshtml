@@ -1,0 +1,125 @@
+﻿@{
+    ViewData["Title"] = "Transaksi Pembelian";
+}
+<style>
+    .nav-container {
+        position: relative;
+    }
+
+    .add {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+</style>
+<partial name="Orders/AddOrder.cshtml"/>
+<div class="nav-container">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active text-right" aria-current="page">Transaksi / Pembelian </li>
+    </ol>
+    <button type="button" class="btn btn-sm btn-success add" data-toggle="modal" data-target=".bd-example-modal-xl">+ Tambah Data</button>
+</div>
+<table id="table-order" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>Tanggal</th>
+            <th>No Ref.</th>
+            <th>No Faktur</th>
+            <th>Supplier</th>
+            <th>Kredit</th>
+            <th>Tgl Tempo</th>
+            <th>Jum.Item</th>
+            <th>Jum.Pajak</th>
+            <th>Ongkir</th>
+            <th>Total Transaksi</th>
+            <th>Total Tunai</th>
+            <th>Total Kredit</th>
+            <th>Cara Bayar</th>
+            <th>Nama Bank</th>
+            <th>No Faktur Pajak</th>
+            <th>Tgl.Faktur Pajak</th>
+            <th>Tgl.Pengkreditan</th>
+            <th>Cabang</th>
+            <th>Pembuat</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="text-center">1</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <a href=""> <span class="glyphicon glyphicon-pencil"></span></a>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#ck-kredit').click(function () {
+            if (this.checked) {
+                $("#dv-tanggal-tempo").removeAttr("hidden");
+                $("#dv-tanggal-tempo").show();
+            } else {
+                $("#dv-tanggal-tempo").hide();
+            }
+        });
+
+        $('#table-order').DataTable({
+            'scrollX': true,
+            dom: 'Bfrtip',
+            buttons: [
+                'csv', 'excel', 'print'
+            ]
+        });
+
+        /* Tanpa Rupiah */
+        //var tanpa_rupiah = document.getElementById('total-');
+        //tanpa_rupiah.addEventListener('keyup', function (e) {
+        //    tanpa_rupiah.value = formatRupiah(this.value);
+        //});
+
+        /* Dengan Rupiah */
+        var dengan_rupiah = document.getElementById('total');
+        dengan_rupiah.addEventListener('keyup', function (e) {
+            dengan_rupiah.value = formatRupiah(this.value, 'Rp. ');
+        });
+
+        /* Fungsi Format Rupiah */
+        function formatRupiah(angka, prefix) {
+            var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+        }
+    });
+</script>
