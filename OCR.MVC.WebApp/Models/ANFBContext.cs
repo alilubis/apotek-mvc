@@ -20,9 +20,11 @@ namespace OCR.MVC.WebApp.Models
         {
         }
         public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Supplier>().ToTable("Supplier");
+            modelBuilder.Entity<Doctor>().ToTable("Doctor");
         }
     }
 }

@@ -18,11 +18,11 @@ using OCR.MVC.WebApp.Models;
 namespace OCR.MVC.WebApp.Controllers
 {
 
-    public class SupplierController : Controller
+    public class DoctorController : Controller
     {
         private readonly ANFBContext _db;
 
-        public SupplierController(ANFBContext db)
+        public DoctorController(ANFBContext db)
         {
             _db = db;
         }
@@ -44,15 +44,15 @@ namespace OCR.MVC.WebApp.Controllers
                 orderCriteria = dtParameters.Columns[dtParameters.Order[0].Column].Data;
                 orderAscendingDirection = dtParameters.Order[0].Dir.ToString().ToLower() == "desc";
             }
-            var result = _db.Suppliers.AsQueryable();
+            var result = _db.Doctors.AsQueryable();
             if (!string.IsNullOrEmpty(searchBy))
             {
                 result = result.Where(r => r.Name != null && r.Name.ToUpper().Contains(searchBy.ToUpper()) );
             }
             result = orderAscendingDirection ? result.OrderByDynamic(orderCriteria, DtOrderDir.Asc) : result.OrderByDynamic(orderCriteria, DtOrderDir.Desc);
             var filteredResultsCount = await result.CountAsync();
-            var totalResultsCount = await _db.Suppliers.CountAsync();
-            return Json(new DtResult<Supplier>
+            var totalResultsCount = await _db.Doctors.CountAsync();
+            return Json(new DtResult<Doctor>
             {
                 Draw = dtParameters.Draw,
                 RecordsTotal = totalResultsCount,
@@ -66,7 +66,7 @@ namespace OCR.MVC.WebApp.Controllers
 
         public JsonResult Edit(int id)
         {
-            var dataById = _db.Suppliers.First(u => u.Id == id);
+            var dataById = _db.Doctors.First(u => u.Id == id);
             return Json(new
             {
                 success = true,
@@ -75,23 +75,31 @@ namespace OCR.MVC.WebApp.Controllers
         }
 
         [HttpPost]
-        public JsonResult AddOrUpdate(Supplier model)
+        public JsonResult AddOrUpdate(Doctor model)
         {
             if (ModelState.IsValid)
             {
                 if (model.Id == 0)
                 {
-                    var checkData = _db.Suppliers.Where(u => u.Name == model.Name).SingleOrDefault();
+                    var checkData = _db.Doctors.Where(u => u.Name == model.Name).SingleOrDefault();
                     if (checkData != null)
                     {
                         return Json(new
                         {
                             success = false,
-                            message = "Nama supplier sudah ada"
+                            message = "Dokter sudah terdaftar"
                         });
                     };
 
-                    _db.Suppliers.Add(model);
+                    //var add = new Doctor()
+                    //{
+                    //    Name = model.Name,
+                    //    Specialization = model.Specialization,
+                    //    Telp = model.Telp,
+                    //    Address = model.Address,
+                    //    Email = model.Email
+                    //};
+                    _db.Doctors.Add(model);
                     _db.SaveChanges();
 
                     return Json(new
@@ -102,13 +110,15 @@ namespace OCR.MVC.WebApp.Controllers
                 }
                 else
                 {
-                    var data = _db.Suppliers.First(u => u.Id == model.Id);
-                    data.Code = model.Code;
+                    var data = _db.Doctors.First(u => u.Id == model.Id);
                     data.Name = model.Name;
-                    data.NPWP = model.NPWP;
-                    data.Telp = model.Telp;
+                    data.Specialization = model.Specialization;
                     data.Address = model.Address;
-                    data.PJ = model.PJ;
+                    data.Telp = model.Telp;
+                    data.Email = model.Email;
+                    data.DateOfStart = model.DateOfStart;
+                    data.DateOfEnd = model.DateOfEnd;
+                    data.DayOfWork = model.DayOfWork;
                     _db.SaveChanges();
                     return Json(new
                     {
@@ -128,9 +138,9 @@ namespace OCR.MVC.WebApp.Controllers
         [HttpPost]
         public JsonResult Delete(int id, string reason)
         {
-            //List<Supplier> data = new List<Supplier>();
+            //List<Doctor> data = new List<Doctor>();
             List<string> listString = new List<string>();
-            var delete = _db.Suppliers.First(u => u.Id == id);
+            var delete = _db.Doctors.First(u => u.Id == id);
             if (delete == null)
             {
                 return Json(new

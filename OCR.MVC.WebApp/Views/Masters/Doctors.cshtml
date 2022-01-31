@@ -1,113 +1,340 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Data Dokter";
 }
+<style>
+    .nav-container {
+        position: relative;
+    }
 
-<div class="row">
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-  </div>
+    .add {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css" />
+@*<partial name="Suppliers/AddSupplier.cshtml" />*@
+<div class="nav-container">
+    <ol class="breadcrumb bg-apotek-nav">
+        <li class="breadcrumb-item active text-right" aria-current="page">Masters / Data Dokter </li>
+    </ol>
+    <button type="button" class="btn btn-sm btn-success add" data-toggle="modal" data-target=".box-modal" id="btn-add">+ Tambah Data</button>
 </div>
 
-@* <div class="row">
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-  </div>
-</div> *@
-@* <div class="container">
-    <div id="webcam">
-        
-    </div>
-    
-    <div id="capture" hidden>
-        <img id="imgCapture" />
-    </div>
 
-    <div class="pt-2">
-        <button class="btn btn-success" type="button" id="btnStart" hidden>Open Camera</button> 
-        <button class="btn btn-info" type="button" id="btnCapture">Capture</button> 
-        <button class="btn btn-primary" type="button" id="btnUpload" disabled="disabled">Extract Text</button>
-    </div>
-    
-    <fieldset>
-        <div class="form-group">
-            <label>Result :</label>
-            <textarea class="form-control" readonly rows="10" id="scan-result"></textarea>
+<!-- Modal Add -->
+<div class="modal fade bd-example-modal-lg box-modal" id="modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <input type="text" id="id" name="id" autocomplete="off" class="form-control" value="0" hidden>
+            <div class="modal-header bg-apotek">
+                <h2 class="modal-title" id="ModalCenterTitle" style="color:#ffffff;font-weight:bold">Tambah Data</h2>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <label class="col-form-label">Spesialisasi:</label>
+                        <select id="spec" name="spec" class="form-control" onfocus="validate()" onkeyup="validate()">
+                            <option value="Umum">Umum</option>
+                            <option value="Anak">Anak</option>
+                            <option value="Kandungan">Kandungan</option>
+                            <option value="Penyakit Dalam">Penyakit Dalam</option>
+                            <option value="Saraf">Saraf</option>
+                            <option value="Bedah">Bedah</option>
+                            <option value="Kulit & Kelamin">Kulit & Kelamin</option>
+                            <option value="THT">THT</option>
+                            <option value="Mata">Mata</option>
+                            <option value="Gigi">Gigi</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                        <small class="error-spec text-danger mt-1"></small>
+                    </div>
+                    <div class="col-6">
+                        <label class="col-form-label">Nama:</label>
+                        <input id="nama" type="text" name="nama" autocomplete="off" class="form-control" placeholder="Nama" onkeyup="validate()">
+                        <small class="error-nama text-danger mt-1"></small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label class="col-form-label">Email:</label>
+                        <input id="email" type="text" name="email" autocomplete="off" class="form-control" placeholder="Email" onkeyup="validate()">
+                        <small class="error-npwp text-danger mt-1"></small>
+                    </div>
+                    <div class="col-6">
+                        <label class="col-form-label">Telp:</label>
+                        <input id="telp" type="text" name="telp" autocomplete="off" class="form-control" placeholder="Telepon" onkeyup="validate()">
+                        <small class="error-telp text-danger mt-1"></small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label class="col-form-label">Tanggal Mulai Bekerja:</label>
+                        <input id="join" type="text" name="join" autocomplete="off" class="form-control datepicker" placeholder="Tanggal Mulai Bekerja" onkeyup="validate()">
+                        <small class="error-npwp text-danger mt-1"></small>
+                    </div>
+                    <div class="col-6">
+                        <label class="col-form-label">Tanggal Berhenti Bekerja:</label>
+                        <input id="end" type="text" name="end" autocomplete="off" class="form-control datepicker" placeholder="Tanggal Berhenti Bekerja" onkeyup="validate()">
+                        <small class="error-end text-danger mt-1"></small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label class="col-form-label">Hari Praktek:</label>
+                        <input id="work" type="text" name="work" autocomplete="off" class="form-control" placeholder="Hari Praktek" onkeyup="validate()">
+                        <small class="error-work text-danger mt-1"></small>
+                    </div>
+                    <div class="col-6">
+
+                    </div>
+                </div>
+                <div>
+                    <label class="col-form-label">Alamat:</label>
+                    <Textarea id="alamat" type="alamat" name="alamat" autocomplete="off" class="form-control" rows="2" onkeyup="validate()"></Textarea>
+                    <small class="error-alamat text-danger mt-1"></small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-save" class="btn btn-success bg-apotek" aria-label="Close">Save</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
         </div>
-    </fieldset>
+    </div>
 </div>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script src="~/js/WebCam.js"></script> *@
-    <!-- <script type="text/javascript">
-        $(function () {
-            Webcam.set({
-                width: 320,
-                height: 240,
-                image_format: 'jpeg',
-                jpeg_quality: 90
-            });
-            Webcam.attach('#webcam');
-            $("#btnCapture").click(function () {
-                $("#webcam, #btnCapture").hide();
-                $("#capture, #btnStart").removeAttr("hidden");
-                $("#capture, #btnStart").show();
-                Webcam.snap(function (data_uri) {
-                    $("#imgCapture")[0].src = data_uri;
-                    $("#btnUpload").removeAttr("disabled");
-                });
-            });
-             $("#btnStart").click(function () {
-                $("#webcam, #btnCapture").show();
-                $("#capture, #btnStart").hide();
-                $("#btnUpload").prop("disabled", true);
-            });
-            $("#btnUpload").click(function () {
-                $("#btnUpload").html("Loading..");
-                $("#btnUpload").prop("disabled", true);
-                $.ajax({
-                    type: "POST",
-                    url: "/Home/SaveCapture",
-                    data: {
-                        data: $("#imgCapture")[0].src
-                    },
-                    dataType: "json",
-                    success: function (r) {
-                        console.log(r);
-                        $("#scan-result").val(r.result);
-                        $("#btnUpload").prop("disabled", false);
-                        $("#btnUpload").html("Extract Text");
 
-                    }
-                });
-            });
+<table id="table" class="table table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Spesialisasi</th>
+            <th>Alamat</th>
+            <th>Telp</th>
+            <th>Email</th>
+            <th>Hari Praktek</th>
+            <th>Tgl Mulai Bekerja</th>
+            <th>Tgl Berhenti Bekerja</th>
+            <th class="text-center">Actions</th>
+        </tr>
+    </thead>
+</table>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/moment/moment.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script>
+    function validate() {
+        let spec = $("[name=spec]").val();
+        let nama = $("[name=nama]").val();
+        let telp = $("[name=telp]").val();
+        let alamat = $("[name=alamat]").val();
+        spec == '' ? $(".error-spec").html("Spesialisasi Harus Diisi") : $(".error-spec").html('');
+        nama == '' ? $(".error-nama").html("Nama Harus Diisi") : $(".error-nama").html('');
+        telp == '' ? $(".error-telp").html("Nomor Telepon Harus Diisi") : $(".error-telp").html('');
+        alamat == '' ? $(".error-alamat").html("Alamat Harus Diisi") : $(".error-alamat").html('');
+        if (spec == '' || nama == '' || telp == '' || alamat == '' || work == '') {
+            $("#btn-save").attr("disabled", true);
+        } else {
+            $("#btn-save").attr("disabled", false);
+        }
+    }
+
+    $('.datepicker').datepicker({
+        format: "dd-mm-yyyy",
+        orientation: "auto bottom",
+        autoclose: true
+    });
+
+    $(document).ready(function () {
+
+        $('#modal').on('shown.bs.modal', function () {
+            $("[name=kode]").focus();
+        })
+
+        $('#btn-add').click(function (e) {
+            validate();
+            $("#ModalCenterTitle").text("Tambah Data");
+            $("[name=id]").val(0);
+            $("[name=spec]").val('Umum');
+            $("[name=nama]").val('');
+            $("[name=npwp]").val('');
+            $("[name=telp]").val('');
+            $("[name=alamat]").val('');
+            $("[name=work]").val('');
         });
-    </script> -->
+
+        $('#btn-save').click(function (e) {
+            e.preventDefault();
+            let error = false;
+
+            let parameter = {
+                id: $("[name=id]").val(),
+                code: $("[name=kode]").val(),
+                name: $("[name=nama]").val(),
+                npwp: $("[name=npwp]").val(),
+                telp: $("[name=telp]").val(),
+                address: $("[name=alamat]").val(),
+                pj: $("[name=pj]").val(),
+            }
+            if (!error) {
+                $("#btn-save").attr("disabled", true);
+                $("#btn-save").text("Loading..");
+                $.ajax({
+                    url: '/Doctor/addorupdate',
+                    type: 'POST',
+                    dataType: "JSON",
+                    data: parameter,
+                    success: function (response) {
+                        if (response.success) {
+                            success(response.message);
+                            table.ajax.reload();
+                            $('#modal').modal('hide');
+                        } else {
+                            error(response.message);
+                        }
+                    }, error: function (err) {
+                        error("Internal Server Error !")
+                    }
+                })
+                $("#btn-save").attr("disabled", false);
+                $("#btn-save").text("Save");
+            }
+        });
+
+
+        table = $("#table").DataTable({
+            //dom: 'Bfrtip',
+            //buttons: [
+            //    'csv', 'excel', 'print'
+            //],
+            scrollY: "420px",
+            scrollX: true,
+            scrollCollapse: true,
+            autoWidth: true,
+            pageLength: 5,
+            lengthMenu: [5, 10, 15, 20],
+            aoColumnDefs: [
+                { "bSortable": false, "aTargets": [0, 7] },
+                { "bSearchable": false, "aTargets": [0, 7] }
+            ],
+            stateSave: true,
+            autoWidth: true,
+            processing: true,
+            serverSide: true,
+            paging: true,
+            searching: { regex: true },
+            ajax: {
+                url: "/Doctor/LoadTable",
+                type: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                data: function (d) {
+                    return JSON.stringify(d);
+                }
+            },
+            columns: [
+                {
+                    data: "id", render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
+                { data: "name" },
+                { data: "specialization" },
+                { data: "address" },
+                { data: "telp" },
+                { data: "email" },
+                { data: "dayOfWork" },
+                {
+                    data: "dateOfStart",
+                    render: function (data, type, row) {
+                        if (type === "sort" || type === "type") {
+                            return data;
+                        }
+                        return moment(data).format("DD-MMM-YYYY");
+                    }
+                },
+                {
+                    data: "dateOfEnd",
+                    render: function (data, type, row) {
+                        if (type === "sort" || type === "type") {
+                            return data;
+                        }
+                        return moment(data).format("DD-MMM-YYYY");
+                    }
+                },
+                {
+                    'data': function (data) {
+                        return `` +
+                            `<div class="text-center">
+                                <button
+                                    type="button"
+                                    data-toggle="modal"
+                                    data-target="#modal"
+                                    class="btn btn-warning btn-sm"
+                                    onclick=Edit('/Doctor/edit?id='+${data.id})>Edit</button>
+                                <button
+                                    type="button"
+                                    class="btn btn-danger btn-sm"
+                                    onclick=Delete('/Doctor/delete?id='+${data.id})>Delete</button>
+                            </div>`
+                    }
+                }
+            ]
+        });
+        table.on('order.dt search.dt', function () {
+            table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        }).draw();
+    });
+
+    function DeleteData(url) {
+        let reason = $(".swal2-input").val();
+        $.ajax({
+            type: "POST",
+            url: url + "&&reason=" + reason,
+            success: function (response) {
+                if (response.success) {
+                    success(response.message);
+                    table.ajax.reload();
+                } else {
+                    error(response.message);
+                }
+            },
+            error: function (err) {
+                error("Internal Server Error !")
+            }
+        })
+    }
+
+    function Edit(url) {
+        $("#ModalCenterTitle").text("Edit Data");
+        if (url) {
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function (response) {
+                    if (response.success) {
+                        $("[name=spec]").focus();
+
+                        $("[name=id]").val(response.data.id);
+                        $("[name=spec]").val(response.data.code);
+                        $("[name=nama]").val(response.data.name);
+                        $("[name=npwp]").val(response.data.npwp);
+                        $("[name=telp]").val(response.data.telp);
+                        $("[name=alamat]").val(response.data.address);
+                        $("[name=pj]").val(response.data.pj);
+                    } else {
+                        error("Data not found");
+                    }
+                },
+                error: function (err) {
+                    error("Internal Server Error !")
+                }
+            })
+        }
+    }
+
+</script>
